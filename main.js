@@ -1,4 +1,5 @@
 let submit = document.querySelector(".newTaskBtn");
+let tasksdiv = document.getElementById("tasksdiv");
 let tasksArray = [];
 
 //localStorage.clear();
@@ -9,9 +10,7 @@ function removeTask(index) {
   saveTasks();
   loadTasks();
 }
-
 function renderTasks() {
-  let tasksDiv = document.getElementById("tasksdiv");
   tasksDiv.innerHTML = "";
 
   for (let i = 0; i < tasksArray.length; i++) {
@@ -54,29 +53,23 @@ function createTask(taskText, index) {
   return taskConstainer;
 }
 function addTask(taskText) {
-  let tasksdiv = document.getElementById("tasksdiv");
-  let taskElement = createTask(taskText);
-  if (tasksdiv) {
-    tasksdiv.appendChild(taskElement);
-  } else {
-    console.error("Task container not found");
-  }
-}
-
-function addTaskPrrocess() {
   let taskText = document.querySelector("input[type=text]").value;
   if (taskText !== "") {
-    addTask(taskText, tasksArray.length);
+    let taskElement = createTask(taskText);
+    if (tasksdiv) {
+      tasksdiv.appendChild(taskElement);
+    } else {
+      console.error("Task container not found");
+    }
     tasksArray.push(taskText);
     saveTasks();
     document.querySelector("input[type=text]").value = "";
   }
 }
-
 document.addEventListener("click", function (e) {
   if (e.target.className === "removeBtn") {
     removeTask(e.target.getAttribute("data-index"));
   }
 });
 
-submit.onclick = addTaskPrrocess;
+submit.onclick = addTask;
