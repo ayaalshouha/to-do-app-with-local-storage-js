@@ -4,7 +4,7 @@ let tasksArray = [];
 //localStorage.clear();
 window.onload = loadTasks;
 
-function removeitem(index) {
+function removeTask(index) {
   tasksArray.splice(index, 1);
   saveTasks();
   loadTasks();
@@ -21,8 +21,8 @@ function renderTasks() {
 }
 function loadTasks() {
   let savedTasks = localStorage.getItem("tasks");
-  tasksArray = savedTasks ?  JSON.parse(savedTasks) : []; 
-    renderTasks();
+  tasksArray = savedTasks ? JSON.parse(savedTasks) : [];
+  renderTasks();
 }
 function saveTasks() {
   localStorage.setItem("tasks", JSON.stringify(tasksArray));
@@ -61,15 +61,12 @@ function addTask(taskText) {
   } else {
     console.error("Task container not found");
   }
-
-  return taskElement;
 }
 
 function addTaskPrrocess() {
   let taskText = document.querySelector("input[type=text]").value;
   if (taskText !== "") {
-    let task = addTask(taskText, tasksArray.length);
-    //addTaskToArray(taskText);
+    addTask(taskText, tasksArray.length);
     tasksArray.push(taskText);
     saveTasks();
     document.querySelector("input[type=text]").value = "";
@@ -78,7 +75,7 @@ function addTaskPrrocess() {
 
 document.addEventListener("click", function (e) {
   if (e.target.className === "removeBtn") {
-    removeitem(e.target.getAttribute("data-index"));
+    removeTask(e.target.getAttribute("data-index"));
   }
 });
 
