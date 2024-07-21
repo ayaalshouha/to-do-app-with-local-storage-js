@@ -11,11 +11,11 @@ function removeTask(index) {
   loadTasks();
 }
 function renderTasks() {
-  tasksDiv.innerHTML = "";
+  tasksdiv.innerHTML = "";
 
   for (let i = 0; i < tasksArray.length; i++) {
     let task = createTask(tasksArray[i], i);
-    tasksDiv.appendChild(task);
+    tasksdiv.appendChild(task);
   }
 }
 function loadTasks() {
@@ -38,6 +38,7 @@ function createTask(taskText, index) {
   deleteBtn.innerText = `Delete`;
 
   //add class to delete button
+  taskConstainer.className = "task";
   deleteBtn.className = "removeBtn";
 
   //css elements
@@ -52,23 +53,27 @@ function createTask(taskText, index) {
 
   return taskConstainer;
 }
-function addTask(taskText) {
+
+function addTask() {
   let taskText = document.querySelector("input[type=text]").value;
   if (taskText !== "") {
-    let taskElement = createTask(taskText);
-    if (tasksdiv) {
-      tasksdiv.appendChild(taskElement);
-    } else {
-      console.error("Task container not found");
-    }
+    let taskElement = createTask(taskText, tasksArray.length);
+    tasksdiv.appendChild(taskElement);
     tasksArray.push(taskText);
     saveTasks();
     document.querySelector("input[type=text]").value = "";
   }
 }
-document.addEventListener("click", function (e) {
+
+tasksdiv.addEventListener("click", function (e) {
+  //delete element
   if (e.target.className === "removeBtn") {
     removeTask(e.target.getAttribute("data-index"));
+  }
+  //make complete
+  if (e.target.classList.contains("task")) {
+    console.log(e.target);
+    e.target.classList.toggle("done");
   }
 });
 

@@ -1,7 +1,12 @@
 .container{
+    width: 50%;
     background-color: #eee;
     display: flex;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
     justify-content: space-between;
+    gap: 3px;
     padding: 15px;
     margin: 10px;
     border-radius: 5px;
@@ -9,9 +14,18 @@
     -moz-border-radius: 5px;
     -ms-border-radius: 5px;
     -o-border-radius: 5px;
+    -webkit-transform: translateX(-50%);
+    -moz-transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
+    -o-transform: translateX(-50%);
 }
 
 #tasksdiv{
+    width: 50%;
+    position: absolute;
+    left: 50%;
+    top: 15%;
+    transform: translateX(-50%);
     background-color: #eee;
     display: flex;
     flex-direction: column;
@@ -19,6 +33,10 @@
     padding: 15px;
     margin: 10px;
     border-radius: 5px;
+    -webkit-transform: translateX(-50%);
+    -moz-transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
+    -o-transform: translateX(-50%);
 }
 
 .container .newTaskBtn{
@@ -43,4 +61,10 @@ input{
     -moz-border-radius: 2px;
     -ms-border-radius: 2px;
     -o-border-radius: 2px;
+}
+.task {
+    transition: opacity 0.5s ease;
+}
+.done {
+    opacity: 0.4;
 }
