@@ -6,11 +6,11 @@ window.onload = loadTasks;
 
 function removeitem(index) {
   tasksArray.splice(index, 1);
-  updateLocalStorage();
-  retrieveArray();
+  saveTasks();
+  loadTasks();
 }
 
-function displayArray() {
+function renderTasks() {
   let tasksDiv = document.getElementById("tasksdiv");
   tasksDiv.innerHTML = "";
 
@@ -20,17 +20,12 @@ function displayArray() {
   }
 }
 function loadTasks() {
-  let jsonArr = localStorage.getItem("myArray");
-  if (jsonArr) {
-    tasksArray = JSON.parse(jsonArr);
-    displayArray();
-  } else {
-    console.log("No previous tasks found in local storage.");
-  }
+  let savedTasks = localStorage.getItem("tasks");
+  tasksArray = savedTasks ?  JSON.parse(savedTasks) : []; 
+    renderTasks();
 }
-function updateLocalStorage() {
-  let jsonArray = JSON.stringify(tasksArray);
-  localStorage.setItem("myArray", jsonArray);
+function saveTasks() {
+  localStorage.setItem("tasks", JSON.stringify(tasksArray));
 }
 function createTask(taskText, index) {
   //create tsak elements
@@ -76,7 +71,7 @@ function addTaskPrrocess() {
     let task = addTask(taskText, tasksArray.length);
     //addTaskToArray(taskText);
     tasksArray.push(taskText);
-    updateLocalStorage();
+    saveTasks();
     document.querySelector("input[type=text]").value = "";
   }
 }
