@@ -1,0 +1,46 @@
+.container{
+    background-color: #eee;
+    display: flex;
+    justify-content: space-between;
+    padding: 15px;
+    margin: 10px;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+}
+
+#tasksdiv{
+    background-color: #eee;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 15px;
+    margin: 10px;
+    border-radius: 5px;
+}
+
+.container .newTaskBtn{
+    background-color: red;
+    border: none;
+    color: white;
+    padding: 10px;
+    border-radius:5px;
+    -webkit-border-radius:5px;
+    -moz-border-radius:5px;
+    -ms-border-radius:5px;
+    -o-border-radius:5px;
+    cursor: pointer;
+}
+
+input{
+    border: 1px solid #aaa;
+    border-radius: 2px; 
+    width: 350px;
+    padding: 10px;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    -ms-border-radius: 2px;
+    -o-border-radius: 2px;
+}
