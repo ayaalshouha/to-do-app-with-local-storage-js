@@ -1,9 +1,8 @@
-let taskBtn = document.querySelector(".newTaskBtn");
+let submit = document.querySelector(".newTaskBtn");
 let tasksArray = [];
 
-// localStorage.clear();
-
-window.onload = retrieveArray;
+//localStorage.clear();
+window.onload = loadTasks;
 
 function removeitem(index) {
   tasksArray.splice(index, 1);
@@ -16,18 +15,11 @@ function displayArray() {
   tasksDiv.innerHTML = "";
 
   for (let i = 0; i < tasksArray.length; i++) {
-    let task = document.createElement("div");
-    task.style.cssText = `display:flex; justify-content:space-between;padding:6px;margin:5px;background-color:white; border-radius:4px;`;
-    task.innerHTML = tasksArray[i];
-
-    let removeBtn = task.querySelector("button");
-    removeBtn.className = "removeBtn";
-
+    let task = createTask(tasksArray[i], i);
     tasksDiv.appendChild(task);
   }
 }
-
-function retrieveArray() {
+function loadTasks() {
   let jsonArr = localStorage.getItem("myArray");
   if (jsonArr) {
     tasksArray = JSON.parse(jsonArr);
@@ -36,12 +28,11 @@ function retrieveArray() {
     console.log("No previous tasks found in local storage.");
   }
 }
-
 function updateLocalStorage() {
   let jsonArray = JSON.stringify(tasksArray);
   localStorage.setItem("myArray", jsonArray);
 }
-function createTask(taskText) {
+function createTask(taskText, index) {
   //create tsak elements
   let taskConstainer = document.createElement(`div`);
   let taskConstainerText = document.createElement(`span`);
@@ -59,6 +50,7 @@ function createTask(taskText) {
   taskConstainer.style.cssText = `display:flex; justify-content:space-between;padding:6px;margin:5px;background-color:white; border-radius:4px;`;
   taskConstainerText.style.cssText = `color:black;font-weight:18px;`;
   deleteBtn.style.cssText = `background-color: red;border: none;color: white;padding:3px;border-radius:2px;`;
+  deleteBtn.setAttribute("data-index", index);
 
   //append elements to main container
   taskConstainer.appendChild(taskConstainerText);
@@ -66,7 +58,6 @@ function createTask(taskText) {
 
   return taskConstainer;
 }
-
 function addTask(taskText) {
   let tasksdiv = document.getElementById("tasksdiv");
   let taskElement = createTask(taskText);
@@ -82,16 +73,18 @@ function addTask(taskText) {
 function addTaskPrrocess() {
   let taskText = document.querySelector("input[type=text]").value;
   if (taskText !== "") {
-    let task = addTask(taskText);
-    tasksArray.push(task.innerHTML);
+    let task = addTask(taskText, tasksArray.length);
+    //addTaskToArray(taskText);
+    tasksArray.push(taskText);
     updateLocalStorage();
+    document.querySelector("input[type=text]").value = "";
   }
 }
 
 document.addEventListener("click", function (e) {
   if (e.target.className === "removeBtn") {
-    removeitem(e.index);
+    removeitem(e.target.getAttribute("data-index"));
   }
 });
 
-taskBtn.onclick = addTaskPrrocess;
+submit.onclick = addTaskPrrocess;
